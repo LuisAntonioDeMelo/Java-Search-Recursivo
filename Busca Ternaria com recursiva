@@ -1,0 +1,52 @@
+import java.util.Scanner;
+
+public class BuscaTernariaRecursiva {
+
+    public static int Busca(int arr[], int ent){
+        return buscaTernaria(arr, ent, 0, arr.length-1);
+    }
+    
+    public static int buscaTernaria(int arr[], int ent, int inicio, int fim){
+        if(inicio > fim){
+            return -1;
+        }
+        int meio1 = inicio + (fim - inicio)/3;        
+        int meio2 = inicio + 2*(fim - inicio)/3;
+        
+        if(arr[meio1] == ent){
+            return meio1;
+        }
+        else if(arr[meio2] == ent){
+            return meio2;
+        }
+        else if(ent < arr[meio1]){
+            return buscaTernaria(arr, ent,inicio, meio1-1);
+        }
+        else if(ent > arr[meio2]){
+            return buscaTernaria(arr, ent, meio2+1 , fim);
+        }
+        else{
+            return buscaTernaria(arr, ent, meio1, meio2);
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner inp = new Scanner(System.in);
+        int array[] = {2, 5, 10,13,18,21,22,25,29,31,36,44,47,49,50,62,67,92,110,112,125,132,139,140,148,151};
+        for(int i = 0; i < array.length;i++){
+            System.out.print(" ["+array[i]+"] ");
+        }
+
+        
+        System.out.print("\nPesquise no array :");
+        int pesquisa = inp.nextInt();
+        int resultado = Busca(array,pesquisa);
+        if(resultado == -1){
+            System.out.println("Esse valor não existe");
+        }else{
+            System.out.println("O elemento esta presente na posição "+ (resultado+1));
+        }
+        
+    }
+    
+}
